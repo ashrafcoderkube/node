@@ -1,4 +1,3 @@
-//tutorial.route.ts
 
 import {Router}from "express";
 import insertNewTutorial from "../controllers/tutorial.controller";
