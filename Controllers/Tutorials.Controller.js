@@ -31,8 +31,17 @@ module.exports = {
       } else {
         let page = req.query.page || 1
         let limit = 10
+        let query = {}
+        if(req.query.searchKey){
+          query = {
+            $or: [
+              { title: { $regex: req.query.searchKey, $options: 'i' } },
+              { description: { $regex: req.query.searchKey, $options: 'i' } }
+            ]
+          }
+        }
         const skip = (page - 1) * limit
-        const result = await TutorialsModel.find().skip(skip).limit(limit);
+        const result = await TutorialsModel.find(query).skip(skip).limit(limit);
         const totalItem = await TutorialsModel.countDocuments()
         const totalPages = Math.ceil(totalItem / limit)
         const results = { result, totalPages }

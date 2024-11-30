@@ -30,9 +30,19 @@ module.exports = {
         return;
       } else {
         let page = req.query.page || 1
+        let query = {}
+        if(req.query.searchKey){
+          query = {
+            $or: [
+              { title: { $regex: req.query.searchKey, $options: 'i' } },
+              { description: { $regex: req.query.searchKey, $options: 'i' } }
+            ]
+          }
+        }
         let limit = 10
         const skip = (page - 1) * limit
-        const result = await LibraryModel.find().skip(skip).limit(limit);
+        console.log(query)
+        const result = await LibraryModel.find(query).skip(skip).limit(limit);
         const totalItem = await LibraryModel.countDocuments()
         const totalPages = Math.ceil(totalItem / limit)
         const results = { result, totalPages }
