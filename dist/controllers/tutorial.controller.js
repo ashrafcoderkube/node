@@ -7,13 +7,15 @@ const tutorial_model_1 = __importDefault(require("../models/tutorial.model"));
 const insertNewTutorial = async (req, res) => {
     try {
         const { title, description, category, difficulty } = req.body;
-        if (!title || !difficulty || !description || !category) {
+        /*
+        if(!title || !difficulty || !description || !category){
             res.status(400).json({
-                success: false,
-                message: "Fields misssing , check again before inserting"
+                success : false,
+                message : "Fields misssing , check again before inserting"
             });
             return;
         }
+        */
         const newTutorial = new tutorial_model_1.default({
             title,
             description,

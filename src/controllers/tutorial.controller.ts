@@ -7,6 +7,7 @@ const insertNewTutorial = async (req : Request , res : Response) => {
 
         const {title , description , category , difficulty } = req.body;
 
+        /*
         if(!title || !difficulty || !description || !category){
             res.status(400).json({
                 success : false,
@@ -14,6 +15,7 @@ const insertNewTutorial = async (req : Request , res : Response) => {
             });
             return;
         }
+        */
 
         const newTutorial:tutorialInterface = new tutorialModel({
             title,
