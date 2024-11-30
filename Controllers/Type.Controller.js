@@ -1,11 +1,8 @@
 
-// Importing HTTP status codes and messages from utilities
-const { Codes, Messages } = require("../Utils/httpCodesAndMessages");
-// Importing the response handler utility for managing API responses
-const ResponseHandler = require("../Utils/responseHandler");
 const TypeModel = require("../Models/Type.Model");
 
 module.exports = {
+  
   createType: async (req, res, next) => {
     try {
       const result = await TypeModel(req.body).save();;

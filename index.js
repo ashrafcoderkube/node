@@ -3,6 +3,8 @@ const dotenv = require("dotenv").config();
 const cors = require("cors");
 const app = express(); 
 
+const config = require("./config/dbConfig")()
+
 app.use(cors()); 
 app.use(express.json()); 
 
@@ -14,14 +16,14 @@ const RoutesType = require("./Routes/Type.Route");
 const RoutesLibrary = require("./Routes/Library.Route");
 const RoutesCategory = require("./Routes/Category.Route");
 
-apiV1Router.use("/Library", RoutesLibrary);
-apiV1Router.use("/Type", RoutesType);
-apiV1Router.use("/Keywords", RoutesKeywords);
-apiV1Router.use("/Tutorials", RoutesTutorials);
-apiV1Router.use("/Category", RoutesCategory);
-
-
 app.use("/api", router); 
+
+router.use("/Library", RoutesLibrary);
+router.use("/Type", RoutesType);
+router.use("/Keywords", RoutesKeywords);
+router.use("/Tutorials", RoutesTutorials);
+router.use("/Category", RoutesCategory);
+
 
 const PORT = process.env.PORT || 8096; 
 

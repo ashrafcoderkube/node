@@ -1,5 +1,6 @@
 
 const express = require("express");
+const TypeController = require("../Controllers/Type.Controller");
 const router = express.Router();
 
 router.post("/" ,TypeController.createType);
