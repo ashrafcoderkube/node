@@ -3,31 +3,29 @@ const mongoose = require('mongoose');
 const codeLibrarySchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
+    required: [true, "title field is required"],
     trim: true,
   },
   description: {
     type: String,
-    required: true,
+    required: [true, "description field is required"],
     trim: true,
   },
   keywords: {
-    type: [String], 
-    required: true,
+    type: [mongoose.Schema.Types.ObjectId],
+    ref : "Keywords",
+    required: [true, "keywords id is required"],
   },
   codeSnippet: {
     type: String, 
-    required: true,
+    required: [true, "name field is required"],
   },
   category: {
-    type: String,
-    required: true,
-    trim: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+    required: [true, "Category id is required"],
+    
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+}  , {timestamps : true , versionKey : false});
 
 module.exports = mongoose.model('CodeLibrary', codeLibrarySchema);
