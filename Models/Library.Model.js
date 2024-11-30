@@ -18,7 +18,7 @@ const codeLibrarySchema = new mongoose.Schema({
   },
   codeSnippet: {
     type: String, 
-    required: [true, "name field is required"],
+    required: [true, "codeSnippet field is required"],
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
@@ -26,6 +26,12 @@ const codeLibrarySchema = new mongoose.Schema({
     required: [true, "Category id is required"],
     
   },
+  tutorial: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Tutorial",
+    required: [true, "Tutorial id is required"],
+    
+  }
 }  , {timestamps : true , versionKey : false});
 
 module.exports = mongoose.model('CodeLibrary', codeLibrarySchema);
