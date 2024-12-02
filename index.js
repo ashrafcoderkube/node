@@ -72,7 +72,7 @@ apiV1Router.use((err, req, res, next) => {
     });
 });
 
-app.use("/api/v1" , apiV1Router); // Mounting API v1 router at '/api/v1'
+app.use("/v1" , apiV1Router); // Mounting API v1 router at '/api/v1'
 
 const http = require("https"); // Importing HTTPS module
 const PORT = process.env.PORT || 8096; // Setting port from environment variable or default to 8096
