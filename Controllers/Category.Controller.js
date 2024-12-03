@@ -29,7 +29,7 @@ module.exports = {
         ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
         return;
       }
-      else if(req.query.id && req.query.page == -1){
+      else if(req.query.page == -1){
         const result = await CategoryModel.find();
 
         ResponseHandler.sendSuccess(res , result , Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
