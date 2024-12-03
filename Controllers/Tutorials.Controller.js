@@ -30,7 +30,7 @@ module.exports = {
         return;
       } else if (req.query.page == -1){
         const result = new TutorialsModel.find();
-        ResponseHandler.sendSuccess(res, resizeBy, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
+        ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
         return;
       }
         else {
