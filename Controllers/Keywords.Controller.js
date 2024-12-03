@@ -8,7 +8,7 @@ const KeywordsModel = require("../Models/Keywords.Model");
 module.exports = {
   createKeywords: async (req, res, next) => {
     try {
-      const result = await KeywordsModel(req.body).save();;
+      const result = await KeywordsModel(req.body).save();
       ResponseHandler.sendSuccess(res, result, Codes.CREATED, Messages.DATA_CREATED_SUCCESS);
       return;
     } catch (error) {
