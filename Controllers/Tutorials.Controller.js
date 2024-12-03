@@ -28,7 +28,12 @@ module.exports = {
         }
         ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
         return;
-      } else {
+      } else if (req.query.page == -1){
+        const result = new TutorialsModel.find();
+        ResponseHandler.sendSuccess(res, resizeBy, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
+        return;
+      }
+        else {
         let page = req.query.page || 1
         let limit = 10
         let query = {}
