@@ -29,7 +29,7 @@ module.exports = {
         ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
         return;
       } else if (req.query.page == -1){
-        const result = new TutorialsModel.find();
+        const result = await TutorialsModel.find();
         ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
         return;
       }
