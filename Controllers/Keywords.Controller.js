@@ -28,7 +28,8 @@ module.exports = {
         }
         ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
         return;
-      } else {
+      }
+      else {
         let page = req.query.page || 1
         let limit = 10
         const skip = (page - 1) * limit
