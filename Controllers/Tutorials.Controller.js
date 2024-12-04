@@ -21,11 +21,6 @@ module.exports = {
   getTutorials: async (req, res, next) => {
     try {
       if (req.query.id) {
-        if(req.query.page == -2){
-          const result = await TutorialsModel.findById(req.query.id).populate({path : "category" , select: "name"});
-        }else{
-          const result = await TutorialsModel.findById(req.query.id);
-        }
         if (!result) {
           ResponseHandler.sendError(res, "Data not found", Codes.NOT_FOUND, Messages.NOT_FOUND);
           return;
@@ -37,6 +32,12 @@ module.exports = {
         ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
         return;
       }
+      else if (req.query.page == -2){
+        
+          const result = await TutorialsModel.find().populate({path : "category" , select: "name"});
+          ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
+          return;
+        }
         else {
         let page = req.query.page || 1
         let limit = 10
