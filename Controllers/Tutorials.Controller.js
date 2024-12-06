@@ -19,6 +19,19 @@ module.exports = {
   },
 
   getTutorials: async (req, res, next) => {
+
+    /*
+
+    const book = await Book.findOne({ title: "Some Book Title" })
+  .populate([
+    { path: "author", select: "name" },   // Populate author with only the 'name' field
+    { path: "category", select: "name" } // Populate category with only the 'name' field
+  ]);
+
+console.log(book);
+
+    */
+
     try {
       if (req.query.id) {
         if (!result) {
@@ -34,7 +47,7 @@ module.exports = {
       }
       else if (req.query.page == -2){
         
-          const result = await TutorialsModel.find().populate({path : "category" ,select: "name"} , {path : "keywords" ,select: "name"});
+          const result = await TutorialsModel.find().populate([{path : "category" ,select: "name"} , {path : "keywords" ,select: "name"}]);
           ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
           return;
         }
