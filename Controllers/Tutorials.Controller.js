@@ -19,19 +19,6 @@ module.exports = {
   },
 
   getTutorials: async (req, res, next) => {
-
-    /*
-
-    const book = await Book.findOne({ title: "Some Book Title" })
-  .populate([
-    { path: "author", select: "name" },   // Populate author with only the 'name' field
-    { path: "category", select: "name" } // Populate category with only the 'name' field
-  ]);
-
-console.log(book);
-
-    */
-
     try {
       if (req.query.id) {
         if (!result) {
@@ -40,22 +27,22 @@ console.log(book);
         }
         ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
         return;
-      } else if (req.query.page == -1){
+      } else if (req.query.page == -1) {
         const result = await TutorialsModel.find();
         ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
         return;
       }
-      else if (req.query.page == -2){
-        
-          const result = await TutorialsModel.find().populate([{path : "category" ,select: "name"} , {path : "keywords" ,select: "name"}]);
-          ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
-          return;
-        }
-        else {
+      else if (req.query.page == -2) {
+
+        const result = await TutorialsModel.find().populate([{ path: "category", select: "name" }, { path: "difficulty", select: "name" }]);
+        ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
+        return;
+      }
+      else {
         let page = req.query.page || 1
         let limit = 10
         let query = {}
-        if(req.query.searchKey){
+        if (req.query.searchKey) {
           query = {
             $or: [
               { title: { $regex: req.query.searchKey, $options: 'i' } },
@@ -108,7 +95,7 @@ console.log(book);
         }
         ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
         return;
-      }else {
+      } else {
         ResponseHandler.sendError(res, "ID not provided", Codes.BAD_REQUEST, Messages.BAD_REQUEST);
         return;
       }
@@ -118,4 +105,3 @@ console.log(book);
     }
   }
 }
-              
