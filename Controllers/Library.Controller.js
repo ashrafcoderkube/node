@@ -28,19 +28,19 @@ module.exports = {
         }
         ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
         return;
-      } 
-      else if(req.query.page == -1){
-          const result = await LibraryModel.find();
-          ResponseHandler.sendSuccess(res , result , Codes.OK , Messages.DATA_RETRIEVED_SUCCESS);
       }
-      else if(req.query.page == -2){
-        const result = await TutorialsModel.find().populate({path : "category" ,select: "name"} , {path : "difficulty" ,select: "name"});
-        ResponseHandler.sendSuccess(res , result , Codes.OK , Messages.DATA_RETRIEVED_SUCCESS);
-    }
-        else {
+      else if (req.query.page == -1) {
+        const result = await LibraryModel.find();
+        ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
+      }
+      else if (req.query.page == -2) {
+        const result = await LibraryModel.find().populate([{ path: "category", select: "name" }, { path: "tutorial", select: "title" }, { path: 'keywords', select: 'name' }]);
+        ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
+      }
+      else {
         let page = req.query.page || 1
         let query = {}
-        if(req.query.searchKey){
+        if (req.query.searchKey) {
           query = {
             $or: [
               { title: { $regex: req.query.searchKey, $options: 'i' } },
@@ -95,7 +95,7 @@ module.exports = {
         }
         ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
         return;
-      }else {
+      } else {
         ResponseHandler.sendError(res, "ID not provided", Codes.BAD_REQUEST, Messages.BAD_REQUEST);
         return;
       }
@@ -105,4 +105,3 @@ module.exports = {
     }
   }
 }
-              

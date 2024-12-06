@@ -33,7 +33,6 @@ module.exports = {
         return;
       }
       else if (req.query.page == -2) {
-
         const result = await TutorialsModel.find().populate([{ path: "category", select: "name" }, { path: "difficulty", select: "name" }]);
         ResponseHandler.sendSuccess(res, result, Codes.OK, Messages.DATA_RETRIEVED_SUCCESS);
         return;
