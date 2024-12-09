@@ -7,31 +7,15 @@ module.exports = {
     try {
       const result = await TutorialsModel.aggregate([
         { $sample: { size: 6 } },
-        {
-          $lookup: {
-            from: "categories", // Name of the collection in the database for `category`
-            localField: "category", // Field in `TutorialsModel` referencing the category
-            foreignField: "_id", // Field in `categories` that matches `category`
-            as: "category", // Name of the resulting array field
-          },
-        },
-        {
-          $lookup: {
-            from: "difficulties", // Name of the collection in the database for `difficulty`
-            localField: "difficulty", // Field in `TutorialsModel` referencing the difficulty
-            foreignField: "_id", // Field in `difficulties` that matches `difficulty`
-            as: "difficulty", // Name of the resulting array field
-          },
-        },
-        {
-          $project: {
-            "category._id": 0, // Optionally hide fields, like `_id`, in the category
-            "difficulty._id": 0, // Optionally hide fields in the difficulty
-          },
-        },
       ]);
 
-      if (!result || result.length === 0) {
+      const tutorials = await TutorialsModel.populate(result, [
+        { path: "category", select: "name" }, 
+        { path: "difficulty", select: "name" }, 
+      ]);
+
+
+      if (!tutorials || tutorials.length === 0) {
         ResponseHandler.sendError(
           res,
           "Data not found",
@@ -43,7 +27,7 @@ module.exports = {
 
       ResponseHandler.sendSuccess(
         res,
-        result,
+        tutorials,
         Codes.OK,
         Messages.DATA_RETRIEVED_SUCCESS
       );
