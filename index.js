@@ -43,6 +43,8 @@ const RoutesType = require("./Routes/Type.Route");
 // Importing route
 const RoutesLibrary = require("./Routes/Library.Route");
 
+const RoutesFeatured = require("./Routes/Featured.Route")
+
 // Registering route with API v1 router
 apiV1Router.use("/Library", RoutesLibrary);
 // Registering route with API v1 router
@@ -55,6 +57,7 @@ apiV1Router.use("/Tutorials", RoutesTutorials);
 apiV1Router.use("/Category", RoutesCategory);
 // Registering health check route with API v1 router
 apiV1Router.use("/health", RoutesHealth);
+apiV1Router.use("/featured", RoutesFeatured);
 
 // Middleware to handle 404 Not Found error for API v1 routes
 apiV1Router.use((req, res, next) => {
